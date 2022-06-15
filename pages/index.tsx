@@ -15,8 +15,8 @@ export default function Home() {
         sx={{ width: '100vw', minHeight: '80vh' }}
         position="center"
       >
-        <Center p="xl" sx={{ width: mobile ? '90%' : '45%' }}>
-          <Image alt="Oriana" src="/images/oriana.jpg" radius="md" />
+        <Center p="xl" sx={{ width: mobile ? '90%' : '40%' }}>
+          <Image alt="Oriana" src="/images/oriana.jpg" radius="xl" />
         </Center>
         <Welcome />
       </Group>

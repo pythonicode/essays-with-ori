@@ -1,4 +1,4 @@
-import { Group, Title, Text, Stack, useMantineTheme } from '@mantine/core';
+import { Group, Title, Text, Stack, useMantineTheme, Button } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
 export function Welcome() {
@@ -24,6 +24,14 @@ export function Welcome() {
         <Text sx={{ fontSize: 'clamp(1rem, 1.5vw, 2rem)' }} align="center">
           Enjoy premium essay editing at a fraction of the cost.
         </Text>
+        <Group>
+          <Button size={mobile ? 'md' : 'lg'} mt="lg">
+            Get Started
+          </Button>
+          <Button variant="light" size={mobile ? 'md' : 'lg'} mt="lg">
+            Read More
+          </Button>
+        </Group>
       </Stack>
     </>
   );
