@@ -28,15 +28,15 @@ export function Footer() {
         </Text>
       </Center>
       <Stack sx={{ width: mobile ? '100%' : '40%' }}>
-        <Text color="dimmed" size="sm">
-          Copyright 2022. Essays with Ori
-        </Text>
         <Link href="/terms">
           <Group sx={{ cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}>
             <Text component="a">Terms and Conditions</Text>
             <Pencil2Icon />
           </Group>
         </Link>
+        <Text color="dimmed" size="sm">
+          Copyright 2022. Essays with Ori
+        </Text>
       </Stack>
     </Group>
   );
