@@ -13,6 +13,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { Colleges } from '../components/Colleges';
 import { Packages } from '../components/Packages';
 import { Fade } from 'react-awesome-reveal';
+import { Testimonials } from '../components/Testimonials';
 
 export default function Home() {
   const theme = useMantineTheme();
@@ -34,6 +35,7 @@ export default function Home() {
       </Fade>
       <Colleges />
       <Packages />
+      <Testimonials />
     </>
   );
 }

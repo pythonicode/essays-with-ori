@@ -14,7 +14,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { Colleges } from '../components/Colleges';
 import { Packages } from '../components/Packages';
 
-export default function Home() {
+export default function Start() {
   const theme = useMantineTheme();
   const mobile = useMediaQuery('(max-width: 700px)');
 

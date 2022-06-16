@@ -13,13 +13,13 @@ import { useMediaQuery } from '@mantine/hooks';
 import { Colleges } from '../components/Colleges';
 import { Packages } from '../components/Packages';
 
-export default function Home() {
+export default function Terms() {
   const theme = useMantineTheme();
   const mobile = useMediaQuery('(max-width: 700px)');
 
   return (
     <Center sx={{ width: '100vw' }}>
-      <Stack sx={{ maxWidth: '65ch' }}>
+      <Stack sx={{ maxWidth: 'min(65ch, 90vw)' }}>
         <h2>
           <strong>Terms and Conditions</strong>
         </h2>

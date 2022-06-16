@@ -1,8 +1,10 @@
 import { Group, Title, Text, Stack, useMantineTheme, Button } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { useRouter } from 'next/router';
 
 export function Welcome() {
   const theme = useMantineTheme();
+  const router = useRouter();
   const mobile = useMediaQuery('(max-width: 700px)');
 
   return (
@@ -28,7 +30,12 @@ export function Welcome() {
           <Button size={mobile ? 'md' : 'lg'} mt="lg">
             Get Started
           </Button>
-          <Button variant="light" size={mobile ? 'md' : 'lg'} mt="lg">
+          <Button
+            variant="light"
+            size={mobile ? 'md' : 'lg'}
+            mt="lg"
+            onClick={() => router.push('/about')}
+          >
             Read More
           </Button>
         </Group>
