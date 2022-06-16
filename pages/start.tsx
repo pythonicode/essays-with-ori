@@ -3,6 +3,7 @@ import {
   Container,
   Image,
   Text,
+  Title,
   useMantineTheme,
   Group,
   ScrollArea,
@@ -12,7 +13,6 @@ import { Welcome } from '../components/Welcome';
 import { useMediaQuery } from '@mantine/hooks';
 import { Colleges } from '../components/Colleges';
 import { Packages } from '../components/Packages';
-import { Fade } from 'react-awesome-reveal';
 
 export default function Home() {
   const theme = useMantineTheme();
@@ -20,20 +20,13 @@ export default function Home() {
 
   return (
     <>
-      <Fade triggerOnce>
-        <Group
-          direction={mobile ? 'column' : 'row'}
-          sx={{ width: '100vw', minHeight: '80vh' }}
-          position="center"
-        >
-          <Center p="xl" sx={{ width: mobile ? '90%' : '40%' }}>
-            <Image alt="Oriana" src="/images/oriana.jpg" radius="xl" />
-          </Center>
-          <Welcome />
-        </Group>
-      </Fade>
-      <Colleges />
-      <Packages />
+      <Group
+        direction={mobile ? 'column' : 'row'}
+        sx={{ width: '100vw', minHeight: '80vh' }}
+        position="center"
+      >
+        <Title>Get Started</Title>
+      </Group>
     </>
   );
 }

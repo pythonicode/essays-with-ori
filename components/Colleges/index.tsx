@@ -1,5 +1,6 @@
 import { Container, Group, ScrollArea, Title, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { Fade } from 'react-awesome-reveal';
 
 export function Colleges() {
   const mobile = useMediaQuery('(max-width: 700px)');
@@ -25,11 +26,13 @@ export function Colleges() {
           sx={{ width: '100%' }}
           spacing={50}
         >
-          <img src="/images/colleges/stanford.svg" alt="Stanford" width="200px" />
-          <img src="/images/colleges/princeton.svg" alt="Princeton" width="200px" />
-          <img src="/images/colleges/harvard.svg" alt="Harvard" width="200px" />
-          <img src="/images/colleges/carnegiemelon.svg" alt="Carnegie Melon" width="200px" />
-          <img src="/images/colleges/brown.svg" alt="Brown" width="200px" />
+          <Fade cascade triggerOnce>
+            <img src="/images/colleges/stanford.svg" alt="Stanford" width="200px" />
+            <img src="/images/colleges/princeton.svg" alt="Princeton" width="200px" />
+            <img src="/images/colleges/harvard.svg" alt="Harvard" width="200px" />
+            <img src="/images/colleges/carnegiemelon.svg" alt="Carnegie Melon" width="200px" />
+            <img src="/images/colleges/brown.svg" alt="Brown" width="200px" />
+          </Fade>
         </Group>
       </ScrollArea>
     </Container>
