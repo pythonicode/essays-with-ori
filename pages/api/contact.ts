@@ -18,12 +18,13 @@ export default async function handler(request: NextApiRequest, response: NextApi
     secure: true, // use TLS
     auth: {
       user: 'essayswithori@gmail.com',
-      pass: 'tuqfhmgfmwbmktsh',
+      pass: process.env.SMTP_PASSWORD,
     },
   });
   const info = await transporter.sendMail({
     from: 'Essays with Ori (essayswithori@gmail.com)',
-    to: 'orianariley@gmail.com',
+    to:
+      process.env.NODE_ENV == 'development' ? 'anthony.j.riley@gmail.com' : 'orianariley@gmail.com',
     subject: `Message from ${request.body.sender.firstname} ${request.body.sender.lastname} (${request.body.sender.email}): ${request.body.subject}`, // subject line
     text: request.body.message, // plain text body
   });
