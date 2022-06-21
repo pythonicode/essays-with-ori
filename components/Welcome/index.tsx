@@ -1,5 +1,6 @@
 import { Group, Title, Text, Stack, useMantineTheme, Button } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 export function Welcome() {
@@ -27,17 +28,16 @@ export function Welcome() {
           Enjoy premium essay editing at a fraction of the cost.
         </Text>
         <Group>
-          <Button size={mobile ? 'md' : 'lg'} mt="lg">
-            Get Started
-          </Button>
-          <Button
-            variant="light"
-            size={mobile ? 'md' : 'lg'}
-            mt="lg"
-            onClick={() => router.push('/about')}
-          >
-            Read More
-          </Button>
+          <Link href="/start">
+            <Button size={mobile ? 'md' : 'lg'} mt="lg">
+              Get Started
+            </Button>
+          </Link>
+          <Link href="/about">
+            <Button variant="light" size={mobile ? 'md' : 'lg'} mt="lg">
+              Read More
+            </Button>
+          </Link>
         </Group>
       </Stack>
     </>

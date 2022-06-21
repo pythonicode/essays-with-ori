@@ -1,4 +1,4 @@
-import { Title, Group, Stack, Button, TextInput, Divider, Textarea } from '@mantine/core';
+import { Title, Group, Stack, Button, TextInput, Divider, Textarea, Image } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Fade } from 'react-awesome-reveal';
 import { useRouter } from 'next/router';
@@ -67,12 +67,8 @@ export default function Contact() {
 
   return (
     <Fade triggerOnce>
-      <Group
-        direction={mobile ? 'column' : 'row'}
-        sx={{ width: '100vw', minHeight: '80vh' }}
-        position="center"
-        mt={mobile ? 100 : 0}
-      >
+      <Stack sx={{ width: '100vw', minHeight: '80vh' }} align="center" mt={mobile ? 100 : 0}>
+        <Image src="/images/email.svg" sx={{ width: 'min(200px, 80%)' }} />
         <form style={{ width: 'min(600px, 90%)' }} onSubmit={form.onSubmit(submit)}>
           <Stack sx={{ width: '100%' }}>
             <Title align="center">Contact Me!</Title>
@@ -94,7 +90,7 @@ export default function Contact() {
             </Button>
           </Stack>
         </form>
-      </Group>
+      </Stack>
     </Fade>
   );
 }

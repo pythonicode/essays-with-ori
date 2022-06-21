@@ -16,11 +16,11 @@ export function Testimonials() {
       }}
       direction={mobile ? 'column' : 'row'}
     >
-      <Fade>
+      <Fade triggerOnce>
         <img src="/images/education.svg" alt="Education" width="300px" />
       </Fade>
       <Fade direction="right" triggerOnce>
-        <Blockquote sx={{ maxWidth: '65ch' }} cite="Mira Jiang, Harvard 2026">
+        <Blockquote sx={{ maxWidth: '65ch' }} cite="Mira, Harvard 2026" my="xl">
           Oriana always got back to me with comments in a timely manner and I liked having her
           suggestions in Google Docs to look over later as I was revising my writing. She provides
           both notes on what is working well in the essays and what could be improved, which helped

@@ -6,6 +6,7 @@ import { getCookie, setCookies } from 'cookies-next';
 import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
+import { ModalsProvider } from '@mantine/modals';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 
@@ -52,11 +53,13 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           withGlobalStyles
           withNormalizeCSS
         >
-          <NotificationsProvider>
-            <Navbar />
-            <Component {...pageProps} />
-            <Footer />
-          </NotificationsProvider>
+          <ModalsProvider>
+            <NotificationsProvider>
+              <Navbar />
+              <Component {...pageProps} />
+              <Footer />
+            </NotificationsProvider>
+          </ModalsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </>

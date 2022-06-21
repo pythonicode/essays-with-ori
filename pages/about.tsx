@@ -16,7 +16,7 @@ export default function About() {
         position="center"
       >
         <Center p="xl" sx={{ width: 'min(500px, 90%)' }}>
-          <Image alt="Oriana" src="/images/oriana.jpg" radius="xl" />
+          <Image alt="Oriana" src="/images/oriana2.jpg" radius="xl" />
         </Center>
         <Stack sx={{ width: 'min(65ch, 80%)' }}>
           <Title>About Me</Title>
