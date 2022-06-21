@@ -67,7 +67,12 @@ export default function Contact() {
 
   return (
     <Fade triggerOnce>
-      <Stack sx={{ width: '100vw', minHeight: '80vh' }} align="center" mt={mobile ? 100 : 0}>
+      <Stack
+        sx={{ width: '100vw', minHeight: '80vh' }}
+        justify="center"
+        align="center"
+        mt={mobile ? 100 : 0}
+      >
         <Image src="/images/email.svg" sx={{ width: 'min(200px, 80%)' }} />
         <form style={{ width: 'min(600px, 90%)' }} onSubmit={form.onSubmit(submit)}>
           <Stack sx={{ width: '100%' }}>
