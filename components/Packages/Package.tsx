@@ -1,5 +1,6 @@
 import { Title, Text, Stack, Card, Divider, Button, NumberInput } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import Link from 'next/link';
 import { useState } from 'react';
 
 const currency = new Intl.NumberFormat('en-US', {
@@ -27,8 +28,8 @@ export function Package({ title, badge, price, supplemental, costPerWord = 0.05,
               count && price
                 ? price + count * costPerWord
                 : price
-                ? price + 250 * costPerWord
-                : 250 * costPerWord
+                  ? price + 250 * costPerWord
+                  : 250 * costPerWord
             )}
           </Title>
         ) : (
@@ -48,7 +49,7 @@ export function Package({ title, badge, price, supplemental, costPerWord = 0.05,
         </Text>
         <Divider />
         {children}
-        <Button fullWidth>Get Started</Button>
+        <Link href="/start"><Button fullWidth>Get Started</Button></Link>
       </Stack>
     </Card>
   );
