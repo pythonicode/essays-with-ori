@@ -2,7 +2,6 @@ import { Title, Text, Stack, Card, Divider, Button, NumberInput } from '@mantine
 import { useMediaQuery } from '@mantine/hooks';
 import Link from 'next/link';
 import { useState } from 'react';
-import Link
 
 const currency = new Intl.NumberFormat('en-US', {
   style: 'currency',

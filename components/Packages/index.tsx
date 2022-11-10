@@ -2,23 +2,13 @@ import {
   Group,
   Title,
   Text,
-  Stack,
-  useMantineTheme,
-  Card,
   Badge,
-  NumberInput,
   Divider,
 } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import { Package } from './Package';
-import { useState } from 'react';
 import { Zoom } from 'react-awesome-reveal';
 
 export function Packages() {
-  const theme = useMantineTheme();
-  const mobile = useMediaQuery('(max-width: 700px)');
-  const [count, setCount] = useState<number | undefined>(250);
-
   return (
     <>
       <Title my={50} align="center">
