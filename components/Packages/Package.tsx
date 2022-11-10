@@ -2,6 +2,7 @@ import { Title, Text, Stack, Card, Divider, Button, NumberInput } from '@mantine
 import { useMediaQuery } from '@mantine/hooks';
 import Link from 'next/link';
 import { useState } from 'react';
+import Link
 
 const currency = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -38,7 +39,7 @@ export function Package({ title, badge, price, supplemental, costPerWord = 0.05,
         {supplemental && (
           <NumberInput
             value={250}
-            onChange={(val) => setCount(val)}
+            onChange={(val: any) => setCount(val)}
             placeholder="250"
             label="Word Count"
             sx={{ textAlign: 'center', alignItems: 'center', justifyContent: 'center' }}
