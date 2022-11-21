@@ -1,16 +1,14 @@
 import { Group, Title, Text, Stack, useMantineTheme, Button } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 export function Welcome() {
   const theme = useMantineTheme();
-  const router = useRouter();
   const mobile = useMediaQuery('(max-width: 700px)');
 
   return (
     <>
-      <Stack align="center" p="xl" sx={{ width: mobile ? '90%' : '45%' }}>
+      <Stack align="center" p="xl">
         <Group align="center">
           <Title sx={{ fontFamily: 'Boogaloo', fontSize: 'clamp(3rem, 5vw, 5rem)' }}>
             <Text component="span" color={theme.primaryColor} inherit>
