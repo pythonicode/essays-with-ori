@@ -18,6 +18,7 @@ import {
   Checkbox,
   Center,
   List,
+  Loader,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { PlusCircledIcon } from '@modulz/radix-icons';
@@ -28,6 +29,7 @@ import { useModals } from '@mantine/modals';
 import Link from 'next/link';
 import { useForm } from '@mantine/form';
 import { MdCancel, MdCheckCircle, MdError } from 'react-icons/md';
+import { useRouter } from 'next/router';
 
 const currency = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -40,6 +42,7 @@ const currency = new Intl.NumberFormat('en-US', {
 function Form({ price, main, supplementals }: any) {
   const [disabled, setDisabled] = useState(false);
   const [state, setState] = useState('pending');
+  const router = useRouter();
 
   const form = useForm({
     initialValues: {
@@ -82,10 +85,11 @@ function Form({ price, main, supplementals }: any) {
       }),
     });
     const response = await result.json();
-    if (response.err) setState('error');
-    else if (response.status == 'success') setState('success');
-    else if (response.status == 'rejected') setState('rejected');
+    if (response.err || result.status != 200) setState('error');
+    else if (response.customer == 'success' && response.editor == 'success') setState('success');
+    else if (response.customer == 'rejected' || response.editor == 'rejected') setState('rejected');
     setDisabled(false);
+    router.replace("/");
   };
 
   if (state === 'error')
@@ -173,6 +177,7 @@ function Form({ price, main, supplementals }: any) {
             sx={{ width: '100%' }}
             {...form.getInputProps('phone')}
           />
+          <Text size="sm" mb={-10}>Preferred Method of Contact</Text>
           <Select
             data={[
               { value: 'email', label: 'Email' },
@@ -225,8 +230,6 @@ type Supplemental = {
 };
 
 export default function Start() {
-  const theme = useMantineTheme();
-  const mobile = useMediaQuery('(max-width: 700px)');
   const modals = useModals();
 
   const [main, setMain] = useState<Main | null>({ tier: 'basic', link: '', error: '' });
@@ -237,18 +240,18 @@ export default function Start() {
   const calculatePrice = () => {
     const mainPrice = main
       ? main.tier == 'complete'
-        ? 100
+        ? 195
         : main.tier == 'professional'
-        ? 65
-        : 45
+          ? 125
+          : 85
       : 0;
     const supplementalPrice = supplementals
       .map((supp) =>
         supp.tier == 'complete'
-          ? 30 + 0.05 * supp.words
+          ? 50 + 0.1 * supp.words
           : supp.tier == 'professional'
-          ? 20 + 0.04 * supp.words
-          : 10 + 0.03 * supp.words
+            ? 30 + 0.06 * supp.words
+            : 20 + 0.04 * supp.words
       )
       .reduce((total, curr) => total + curr, 0);
     return mainPrice + supplementalPrice;
@@ -258,22 +261,27 @@ export default function Start() {
     event.preventDefault();
     let next = [...supplementals];
     const validate =
-      /https?:\/\/(www\.)?docs.google.com\/document\/\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+      /https?:\/\/(www\.)?docs.google.com\/document\/\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)\/edit\?usp=sharing/;
+    let error = false;
     if (main) {
-      if (!validate.test(main.link.trim()))
+      if (!validate.test(main.link.trim())) {
         setMain({ ...main, error: 'Not a valid link to a Google Doc. Please try again.' });
+        error = true;
+      }
       else setMain({ ...main, error: '' });
     }
     for (let i = 0; i < supplementals.length; i++) {
       const supp = supplementals[i];
       if (!validate.test(supp.link.trim())) {
         next[i].error = 'Not a valid link to a Google Doc. Please try again.';
+        error = true;
       } else {
         next[i].error = '';
       }
     }
     setSupplementals(next);
-    if (next.some((supp) => supp.error != '')) return;
+    if (error == true) return;
+    if (main == null && supplementals.length == 0) return;
     modals.openModal({
       title: 'Almost done!',
       children: <Form price={calculatePrice()} main={main} supplementals={supplementals} />,
@@ -307,9 +315,9 @@ export default function Start() {
                         label="Package"
                         value={main.tier}
                         data={[
-                          { value: 'basic', label: 'Basic ($45.00)' },
-                          { value: 'professional', label: 'Professional ($65.00)' },
-                          { value: 'complete', label: 'Complete ($100.00)' },
+                          { value: 'basic', label: 'Basic ($85.00)' },
+                          { value: 'professional', label: 'Professional ($125.00)' },
+                          { value: 'complete', label: 'Complete ($195.00)' },
                         ]}
                         onChange={(value) => setMain({ ...main, tier: value ? value : 'basic' })}
                         required
@@ -366,15 +374,15 @@ export default function Start() {
                         data={[
                           {
                             value: 'basic',
-                            label: `Basic (${currency.format(10 + 0.03 * supp.words)})`,
+                            label: `Basic (${currency.format(20 + 0.04 * supp.words)})`,
                           },
                           {
                             value: 'professional',
-                            label: `Professional (${currency.format(20 + 0.04 * supp.words)})`,
+                            label: `Professional (${currency.format(30 + 0.06 * supp.words)})`,
                           },
                           {
                             value: 'complete',
-                            label: `Complete (${currency.format(30 + 0.05 * supp.words)})`,
+                            label: `Complete (${currency.format(50 + 0.1 * supp.words)})`,
                           },
                         ]}
                         onChange={(value) => {
@@ -431,7 +439,7 @@ export default function Start() {
             >
               Add Supplemental
             </Button>
-            <Button type="submit" mt="md" fullWidth>
+            <Button type="submit" mt="md" fullWidth disabled={main == null && supplementals.length == 0}>
               Finish
             </Button>
             <Text size="xs" color="dimmed" align="center" p="md">

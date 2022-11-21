@@ -40,7 +40,6 @@ function createEmail(price: number, customer: Customer, main: any, supplementals
 }
 
 export default async function handler(request: NextApiRequest, response: NextApiResponse) {
-  // return response.status(200).json(request.body);
   if (!request.body) return response.status(500).json({ err: 'Request body is empty.' });
   else if (!request.body.customer)
     return response.status(500).json({ err: 'Customer form not provided.' });
@@ -49,14 +48,14 @@ export default async function handler(request: NextApiRequest, response: NextApi
     port: 465,
     secure: true, // use TLS
     auth: {
-      user: 'essayswithori@gmail.com',
+      user: process.env.SMTP_EMAIL,
       pass: process.env.SMTP_PASSWORD,
     },
   });
-  const info = await transporter.sendMail({
+  const sendToEditor = transporter.sendMail({
     from: 'Essays with Ori (essayswithori@gmail.com)',
     to:
-      process.env.NODE_ENV == 'development' ? 'anthony.j.riley@gmail.com' : 'orianariley@gmail.com',
+      process.env.NODE_ENV == 'development' ? process.env.TO_EMAIL_DEV : process.env.TO_EMAIL,
     subject: `🔥 New customer! ${request.body.customer.firstname} ${request.body.customer.lastname} (${request.body.customer.email})`, // subject line
     text: createEmail(
       request.body.price,
@@ -65,13 +64,27 @@ export default async function handler(request: NextApiRequest, response: NextApi
       request.body.supplementals
     ),
   });
+  const sendToCustomer = transporter.sendMail({
+    from: 'Essays with Ori (essayswithori@gmail.com)',
+    to: request.body.customer.email,
+    subject: `✅ [Confirmation] Thanks for your order!`, // subject line
+    text: `Hi ${request.body.customer.firstname},\n\nThank you for your order! I will be in touch with you shortly.\n\nOri`,
+  });
+  const [resultEditor, resultCustomer] = await Promise.all([sendToEditor, sendToCustomer]);
   response.status(200).json({
-    status: info.accepted
+    editor: resultEditor.accepted
       ? 'success'
-      : info.pending
-      ? 'pending'
-      : info.rejected
-      ? 'rejected'
-      : 'unknown',
+      : resultEditor.pending
+        ? 'pending'
+        : resultEditor.rejected
+          ? 'rejected'
+          : 'unknown',
+    customer: resultCustomer.accepted
+      ? 'success'
+      : resultCustomer.pending
+        ? 'pending'
+        : resultCustomer.rejected
+          ? 'rejected'
+          : 'unknown',
   });
 }
