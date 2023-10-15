@@ -240,18 +240,18 @@ export default function Start() {
   const calculatePrice = () => {
     const mainPrice = main
       ? main.tier == 'complete'
-        ? 195
+        ? 245
         : main.tier == 'professional'
-          ? 125
-          : 85
+          ? 155
+          : 105
       : 0;
     const supplementalPrice = supplementals
       .map((supp) =>
         supp.tier == 'complete'
           ? 50 + 0.1 * supp.words
           : supp.tier == 'professional'
-            ? 30 + 0.06 * supp.words
-            : 20 + 0.04 * supp.words
+            ? 40 + 0.075 * supp.words
+            : 30 + 0.05 * supp.words
       )
       .reduce((total, curr) => total + curr, 0);
     return mainPrice + supplementalPrice;

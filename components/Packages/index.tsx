@@ -16,7 +16,7 @@ export function Packages() {
       </Title>
       <Group position="center" sx={{ width: '100%' }} p="xl">
         <Zoom cascade triggerOnce>
-          <Package title="Basic" price={95}>
+          <Package title="Basic" price={105}>
             <Text>Meticulous feedback with unlimited* rounds of line edits. </Text>
             <Text>
               Address your specific questions or comments until you're happy with the state of your
@@ -86,7 +86,7 @@ export function Packages() {
               fleshed out.
             </Text>
           </Package>
-          <Package title="Complete" price={60} costPerWord={0.1} supplemental>
+          <Package title="Complete" price={50} costPerWord={0.1} supplemental>
             <Text>Everything from the Basic package.</Text>
             <Text>
               Up to three 30-45 min video calls to settle on a topic, develop ideas and deliberate.
