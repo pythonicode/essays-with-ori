@@ -22,7 +22,7 @@ export default function Home() {
             noWrap
           >
             <Center p="xl" sx={{ maxWidth: "500px" }}>
-              <Image alt="Oriana" src="/images/oriana.jpg" radius="xl" />
+              <Image alt="Oriana" src="/images/oriana3.jpg" radius="xl" />
             </Center>
             <Welcome />
           </Group>
