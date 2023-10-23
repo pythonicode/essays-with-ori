@@ -55,7 +55,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
   const sendToEditor = transporter.sendMail({
     from: 'Essays with Ori (essayswithori@gmail.com)',
     to:
-      process.env.NODE_ENV == 'development' ? process.env.TO_EMAIL_DEV : process.env.TO_EMAIL,
+      process.env.NODE_ENV == 'development' ? process.env.TO_EMAIL_DEV : process.env.TO_EMAIL_PROD,
     subject: `🔥 New customer! ${request.body.customer.firstname} ${request.body.customer.lastname} (${request.body.customer.email})`, // subject line
     text: createEmail(
       request.body.price,
