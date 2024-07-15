@@ -16,7 +16,7 @@ export function Packages() {
       </Title>
       <Group position="center" sx={{ width: '100%' }} p="xl">
         <Zoom cascade triggerOnce>
-          <Package title="Basic" price={105}>
+          <Package title="Basic" price={145}>
             <Text>Meticulous feedback with unlimited* rounds of line edits. </Text>
             <Text>
               Address your specific questions or comments until you're happy with the state of your
@@ -28,7 +28,7 @@ export function Packages() {
               Applicants must provide a complete or almost-complete draft.
             </Text>
           </Package>
-          <Package title="Professional" badge={<Badge>Most Popular</Badge>} price={155}>
+          <Package title="Professional" badge={<Badge>Most Popular</Badge>} price={195}>
             <Text>Everything from the Basic package.</Text>
             <Text>Two 30-60 min video calls to develop ideas and brainstorm essay structure.</Text>
             <Text>Help transforming outlines and concepts into written-out drafts.</Text>
@@ -37,7 +37,7 @@ export function Packages() {
               fleshed out.
             </Text>
           </Package>
-          <Package title="Complete" price={245}>
+          <Package title="Complete" price={285}>
             <Text>Everything from the Basic package.</Text>
             <Text>
               Up to five 30-45 min video calls to settle on a topic, develop ideas and deliberate.
@@ -56,7 +56,7 @@ export function Packages() {
       </Title>
       <Group position="center" sx={{ width: '100%' }} p="xl">
         <Zoom cascade triggerOnce>
-          <Package title="Basic" price={25} costPerWord={0.05} supplemental>
+          <Package title="Basic" price={50} costPerWord={0.05} supplemental>
             <Text>Meticulous feedback with up to 5 rounds of line edits. </Text>
             <Text>
               Address your specific questions or comments until you're happy with the state of your
@@ -70,7 +70,7 @@ export function Packages() {
           </Package>
           <Package
             title="Professional"
-            price={40}
+            price={50}
             costPerWord={0.075}
             badge={<Badge>Most Popular</Badge>}
             supplemental
@@ -86,7 +86,7 @@ export function Packages() {
               fleshed out.
             </Text>
           </Package>
-          <Package title="Complete" price={50} costPerWord={0.1} supplemental>
+          <Package title="Complete" price={70} costPerWord={0.1} supplemental>
             <Text>Everything from the Basic package.</Text>
             <Text>
               Up to three 30-45 min video calls to settle on a topic, develop ideas and deliberate.
