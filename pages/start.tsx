@@ -240,18 +240,18 @@ export default function Start() {
   const calculatePrice = () => {
     const mainPrice = main
       ? main.tier == 'complete'
-        ? 245
+        ? 285
         : main.tier == 'professional'
-          ? 155
-          : 105
+          ? 195
+          : 145
       : 0;
     const supplementalPrice = supplementals
       .map((supp) =>
         supp.tier == 'complete'
-          ? 50 + 0.1 * supp.words
+          ? 70 + 0.1 * supp.words
           : supp.tier == 'professional'
-            ? 40 + 0.075 * supp.words
-            : 30 + 0.05 * supp.words
+            ? 60 + 0.075 * supp.words
+            : 50 + 0.05 * supp.words
       )
       .reduce((total, curr) => total + curr, 0);
     return mainPrice + supplementalPrice;
@@ -315,9 +315,9 @@ export default function Start() {
                         label="Package"
                         value={main.tier}
                         data={[
-                          { value: 'basic', label: 'Basic ($85.00)' },
-                          { value: 'professional', label: 'Professional ($125.00)' },
-                          { value: 'complete', label: 'Complete ($195.00)' },
+                          { value: 'basic', label: 'Basic ($145)' },
+                          { value: 'professional', label: 'Professional ($195)' },
+                          { value: 'complete', label: 'Complete ($285)' },
                         ]}
                         onChange={(value) => setMain({ ...main, tier: value ? value : 'basic' })}
                         required
@@ -374,15 +374,15 @@ export default function Start() {
                         data={[
                           {
                             value: 'basic',
-                            label: `Basic (${currency.format(20 + 0.04 * supp.words)})`,
+                            label: `Basic (${currency.format(50 + 0.05 * supp.words)})`,
                           },
                           {
                             value: 'professional',
-                            label: `Professional (${currency.format(30 + 0.06 * supp.words)})`,
+                            label: `Professional (${currency.format(60 + 0.075 * supp.words)})`,
                           },
                           {
                             value: 'complete',
-                            label: `Complete (${currency.format(50 + 0.1 * supp.words)})`,
+                            label: `Complete (${currency.format(70 + 0.1 * supp.words)})`,
                           },
                         ]}
                         onChange={(value) => {
