@@ -30,14 +30,7 @@ import Link from 'next/link';
 import { useForm } from '@mantine/form';
 import { MdCancel, MdCheckCircle, MdError } from 'react-icons/md';
 import { useRouter } from 'next/router';
-
-const currency = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-  // These options are needed to round to whole numbers if that's what you want.
-  //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-  //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-});
+import { currency, calculateTotalPrice, PRICING, calculateSupplementalPrice } from '../config/pricing';
 
 function Form({ price, main, supplementals }: any) {
   const [disabled, setDisabled] = useState(false);
@@ -238,23 +231,7 @@ export default function Start() {
   ]);
 
   const calculatePrice = () => {
-    const mainPrice = main
-      ? main.tier == 'complete'
-        ? 285
-        : main.tier == 'professional'
-          ? 195
-          : 145
-      : 0;
-    const supplementalPrice = supplementals
-      .map((supp) =>
-        supp.tier == 'complete'
-          ? 70 + 0.1 * supp.words
-          : supp.tier == 'professional'
-            ? 60 + 0.075 * supp.words
-            : 50 + 0.05 * supp.words
-      )
-      .reduce((total, curr) => total + curr, 0);
-    return mainPrice + supplementalPrice;
+    return calculateTotalPrice(main, supplementals);
   };
 
   const submit = (event: FormEvent) => {
@@ -315,9 +292,9 @@ export default function Start() {
                         label="Package"
                         value={main.tier}
                         data={[
-                          { value: 'basic', label: 'Basic ($145)' },
-                          { value: 'professional', label: 'Professional ($195)' },
-                          { value: 'complete', label: 'Complete ($285)' },
+                          { value: 'basic', label: `Basic (${currency.format(PRICING.main.basic)})` },
+                          { value: 'professional', label: `Professional (${currency.format(PRICING.main.professional)})` },
+                          { value: 'complete', label: `Complete (${currency.format(PRICING.main.complete)})` },
                         ]}
                         onChange={(value) => setMain({ ...main, tier: value ? value : 'basic' })}
                         required
@@ -374,15 +351,15 @@ export default function Start() {
                         data={[
                           {
                             value: 'basic',
-                            label: `Basic (${currency.format(50 + 0.05 * supp.words)})`,
+                            label: `Basic (${currency.format(calculateSupplementalPrice('basic', supp.words))})`,
                           },
                           {
                             value: 'professional',
-                            label: `Professional (${currency.format(60 + 0.075 * supp.words)})`,
+                            label: `Professional (${currency.format(calculateSupplementalPrice('professional', supp.words))})`,
                           },
                           {
                             value: 'complete',
-                            label: `Complete (${currency.format(70 + 0.1 * supp.words)})`,
+                            label: `Complete (${currency.format(calculateSupplementalPrice('complete', supp.words))})`,
                           },
                         ]}
                         onChange={(value) => {
