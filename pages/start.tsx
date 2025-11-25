@@ -30,7 +30,7 @@ import Link from 'next/link';
 import { useForm } from '@mantine/form';
 import { MdCancel, MdCheckCircle, MdError } from 'react-icons/md';
 import { useRouter } from 'next/router';
-import { currency, calculateTotalPrice, PRICING, calculateSupplementalPrice } from '../config/pricing';
+import { currency, calculateTotalPrice, PRICING, calculateSupplementalPrice, MainTier, SupplementalTier } from '../config/pricing';
 
 function Form({ price, main, supplementals }: any) {
   const [disabled, setDisabled] = useState(false);
@@ -210,13 +210,13 @@ function Form({ price, main, supplementals }: any) {
 }
 
 type Main = {
-  tier: string;
+  tier: MainTier;
   link: string;
   error: string;
 };
 
 type Supplemental = {
-  tier: string;
+  tier: SupplementalTier;
   link: string;
   words: number;
   error: string;
@@ -231,7 +231,7 @@ export default function Start() {
   ]);
 
   const calculatePrice = () => {
-    return calculateTotalPrice(main, supplementals);
+    return calculateTotalPrice(main ? { tier: main.tier } : null, supplementals);
   };
 
   const submit = (event: FormEvent) => {
@@ -296,7 +296,7 @@ export default function Start() {
                           { value: 'professional', label: `Professional (${currency.format(PRICING.main.professional)})` },
                           { value: 'complete', label: `Complete (${currency.format(PRICING.main.complete)})` },
                         ]}
-                        onChange={(value) => setMain({ ...main, tier: value ? value : 'basic' })}
+                        onChange={(value) => setMain({ ...main, tier: value ? value as MainTier : 'basic' })}
                         required
                       />
                       <Tooltip
@@ -364,7 +364,7 @@ export default function Start() {
                         ]}
                         onChange={(value) => {
                           let next = [...supplementals];
-                          next[i].tier = value ? value : 'basic';
+                          next[i].tier = value ? value as SupplementalTier : 'basic';
                           setSupplementals(next);
                         }}
                         required
